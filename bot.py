@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-TOKEN = 'NzQzMDgzNTIxMDA1OTc3NjUw.XzPgdQ.tNNwPCbl1SlUjKUU_7lZhYh21UY'
+TOKEN = 'No'
 BOT_PREFIX = '\''
 
 # Do not touch this!  
