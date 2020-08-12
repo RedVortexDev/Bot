@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 TOKEN = 'No'
-BOT_PREFIX = '\''
+BOT_PREFIX = "'"
 
 # Do not touch this!  
 client = commands.Bot(command_prefix=BOT_PREFIX)
@@ -21,19 +21,31 @@ async def on_command_error(ctx, error):
         await ctx.send(f"Didn't find a command with that name, type `{BOT_PREFIX}help` for a list of commands. \u274c")
 
 
-# ping
+# Ping
 @client.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
-#Good Morning
+
+# Test
+@client.command()
+async def test(ctx):
+    await ctx.send("testing")
+    print("test")
+
+
+# Good Morning
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
     
-    if message.lower.__contains__("good morning"):
+    if message.content.lower().__contains__("good morning"):
         await message.channel.send(f"Good morning to you {message.author.mention}!")
+
+
+    # DO NOT TOUCH!
+    await client.process_commands(message)  # This passes the message onto the commands to process after this
 
 
 
