@@ -27,8 +27,13 @@ async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 #Good Morning
-@client.on_messege():
-
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    
+    if message.lower.__contains__("good morning"):
+        await message.channel.send(f"Good morning to you {message.author.mention}!")
 
 
 
