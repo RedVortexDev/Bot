@@ -23,20 +23,28 @@ async def on_command_error(ctx, error):
         await ctx.send(f"Didn't find a command with that name, type `{BOT_PREFIX}help` for a list of commands. \u274c")
 
 
-# Ping Command
+# Ping Command | Format: ping |
 @client.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 
-# Test Command
+# Add role to someone | Format: add_role @member <role> |
+@client.command(pass_context=True)
+async def add_roles(ctx, member: discord.Member = None, role: discord.Role = None):
+    await ctx.client.add_roles(member, role)
+    print(f'{member} was given {role}.')
+
+
+# Test Command | Format: test |
 @client.command()
 async def test(ctx):
     await ctx.send("testing")
     print("test")
 
 
-# Good Morning & Good Night
+# Good Morning & Good Night | Format: Any, but required the words "Good Morning" or "Good Night" in the sentence you
+# type|
 @client.event
 async def on_message(message):
     if message.author == client.user:
