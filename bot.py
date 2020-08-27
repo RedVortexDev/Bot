@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord import File
 
 # Arguments for the bot to be online
 TOKEN = ''
@@ -29,13 +30,6 @@ async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 
-# Add role to someone | Format: add_role @member <role> |
-@client.command(pass_context=True)
-async def add_roles(ctx, member: discord.Member = None, role: discord.Role = None):
-    await ctx.client.add_roles(member, role)
-    print(f'{member} was given {role}.')
-
-
 # Test Command | Format: test |
 @client.command()
 async def test(ctx):
@@ -43,8 +37,8 @@ async def test(ctx):
     print("test")
 
 
-# Good Morning & Good Night | Format: Any, but required the words "Good Morning" or "Good Night" in the sentence you
-# type|
+# Good Morning & Good Night & Ping & @everyone & ez | Format: Any, but required the words that are writen down here
+# in the sentence you type|
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -57,6 +51,24 @@ async def on_message(message):
     # Good Night
     if message.content.lower().__contains__("good night"):
         await message.channel.send(f"Good night {message.author.mention}!")
+
+    # @everyone
+    if message.content == "@everyone":
+        await message.channel.send(f"Why tho? {message.author.mention}")
+
+    # ez
+    if message.content.lower().__contains__("ez"):
+        await message.channel.purge(limit=1)
+        await message.channel.send(f"{message.author.mention} Really enjoyed playing with you! :)")
+
+    # ping
+    if message.content.lower().__contains__("ping"):
+        await message.channel.send(f"I can do that! Here! -> {message.author.mention}")
+
+    # leaving
+    if message.content.lower().__contains__("leaving the server"):
+        await message.channel.send(f"Really {message.author.mention}? so i guess...")
+        await message.channel.send(file=File("./data/images/Adios.jpg"))
 
     # DO NOT TOUCH!
     await client.process_commands(message)  # This passes the message onto the commands to process after this
